@@ -22,7 +22,7 @@ Index.php: Ofrece una mínima interfaz para seleccionar la moneda y la fecha par
 Buscar.php: Realiza la consulta de búsqueda del index, es decir Index->Llamada de Ajax->Buscar
 
 # Version WEB 
-Version Web: http://reflejo.epizy.com/supervielle
+Version Web: http://reflej0.com/supervielle/
 
 # Contacto 
 Cualquier contacto, realizarlo mediante issues.
