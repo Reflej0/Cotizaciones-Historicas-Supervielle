@@ -21,5 +21,8 @@ Obtiene las cotizaciones del sitio https://personas.supervielle.com.ar/Pages/Quo
 Index.php: Ofrece una mínima interfaz para seleccionar la moneda y la fecha para consultar la cotización histórica.  
 Buscar.php: Realiza la consulta de búsqueda del index, es decir Index->Llamada de Ajax->Buscar
 
+# Version WEB 
+Version Web: http://reflejo.epizy.com/supervielle
+
 # Contacto 
 Cualquier contacto, realizarlo mediante issues.
