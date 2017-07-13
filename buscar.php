@@ -3,7 +3,7 @@
 $moneda = $_POST['moneda'];
 $fecha = $_POST['fecha'];
 
-//Adaptando al fecha del lenguaje usuario a SQL.
+//Adaptando la fecha del lenguaje usuario a SQL.
 $fecha_sql = explode("/", $fecha);
 $fecha = $fecha_sql[2] . "/" . $fecha_sql[1] . "/" . $fecha_sql[0];
 
@@ -13,9 +13,21 @@ $username = "root";
 $password = "";
 $dbname = "cotizacion_supervielle";
 
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-$sql="SELECT compra, venta FROM cotizaciones WHERE moneda = '".$moneda."' AND fecha = '".$fecha."'";
-$result = mysqli_query($conn,$sql);
+// Estableciendo los parámetros de conexión a la base de datos.
+$conexion = mysqli_connect($servername, $username, $password, $dbname);
+
+/*	Utilizando el escapeo de caracteres nativo de PHP, para evitar inyeccion SQL.
+	Adicionalmente se podría utilizar una vista o un stored procedure en la BD.
+*/
+$moneda_safe = mysqli_real_escape_string($conexion, $moneda);
+$fecha_safe = mysqli_real_escape_string($conexion, $fecha);
+
+//Estableciendo los parámetros de consulta a la base de datos.
+
+$sql="SELECT compra, venta FROM cotizaciones WHERE moneda = '".$moneda_safe."' AND fecha = '".$fecha_safe."'";
+$result = mysqli_query($conexion,$sql);
+
+//Se imprime visualmente una tabla con la información.
 echo "<table> 
 <tr>
 <th>Compra</th>
@@ -29,5 +41,5 @@ while($row = mysqli_fetch_array($result)) { // Se imprime agrupado en tablas la 
     echo "</tr>";
 }
 echo "</table>"; // Se cierra la tabla.
-mysqli_close($conn); // Se cierra la conexión a la base.
+mysqli_close($conexion); // Se cierra la conexión a la base.
 ?>
