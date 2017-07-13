@@ -16,7 +16,7 @@ Además se incluye un trigger, que a cada registro agregado le define la fecha, 
 
 # PHP
 Por la parte de PHP, se incluyen 3 archivos.  
-Update.php: Obtiene las cotizaciones del sitio https://personas.supervielle.com.ar/Pages/QuotesPanel/QuotesCoins.aspx.  Este archivo se debe ejecutar mediante una automatización como CRON Jobs, en un intervalo definido entre las 10:00hs y 15:00hs, los horarios donde las cotizaciones pueden sufrir variaciones.  
+Update.php: Obtiene las cotizaciones del sitio https://personas.supervielle.com.ar/Pages/QuotesPanel/QuotesCoins.aspx .  Este archivo se debe ejecutar mediante una automatización como CRON Jobs, en un intervalo definido entre las 10:00hs y 15:00hs, los horarios donde las cotizaciones pueden sufrir variaciones.  
 Index.php: Ofrece una mínima interfaz para seleccionar la moneda y la fecha para consultar la cotización histórica.  
 Buscar.php: Realiza la consulta de búsqueda del index, es decir Index->Llamada de Ajax->Buscar
 
