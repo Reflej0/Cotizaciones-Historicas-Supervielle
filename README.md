@@ -11,13 +11,12 @@ fecha, Formato: DATE.
 moneda, Formato: VARCHAR.  
 compra, Formato: FLOAT.  
 venta, Formato: FLOAT.  
-La tabla contiene como clave primaria a los campos fecha y moneda. Es decir se admite un valor de compra y venta por dia de una moneda.  
-Además se incluye un trigger, que a cada registro agregado le define la fecha, dado que el campo DATE no admite CURRENT_TIMESTAMP.
+La tabla contiene como clave primaria a los campos fecha y moneda. Es decir se admite un único valor de compra y venta por dia de una moneda.  
+Además se incluye un trigger, que a cada registro agregado le define la fecha, dado que el campo DATE no admite CURRENT_TIMESTAMP como valor por defecto.
 
 # PHP
 Por la parte de PHP, se incluyen 3 archivos.  
-Update.php: Este archivo se debe (mediante alguna optimización) ejecutar tan solo una vez por día.  
-Obtiene las cotizaciones del sitio https://personas.supervielle.com.ar/Pages/QuotesPanel/QuotesCoins.aspx  
+Update.php: Obtiene las cotizaciones del sitio https://personas.supervielle.com.ar/Pages/QuotesPanel/QuotesCoins.aspx.  Este archivo se debe ejecutar mediante una automatización como CRON Jobs, en un intervalo definido entre las 10:00hs y 15:00hs, los horarios donde las cotizaciones pueden sufrir variaciones.  
 Index.php: Ofrece una mínima interfaz para seleccionar la moneda y la fecha para consultar la cotización histórica.  
 Buscar.php: Realiza la consulta de búsqueda del index, es decir Index->Llamada de Ajax->Buscar
 
