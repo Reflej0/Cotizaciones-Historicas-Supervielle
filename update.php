@@ -1,45 +1,61 @@
 <?php
-//Parametros recibidos.
-$moneda = $_POST['moneda'];
-$fecha = $_POST['fecha'];
+$ch = curl_init();
 
-//Adaptando la fecha del lenguaje usuario a SQL.
-$fecha_sql = explode("/", $fecha);
-$fecha = $fecha_sql[2] . "/" . $fecha_sql[1] . "/" . $fecha_sql[0];
+curl_setopt($ch, CURLOPT_URL, "https://personas.supervielle.com.ar/Pages/QuotesPanel/QuotesCoins.aspx");
 
-//Parametros BD.
+curl_setopt($ch,CURLOPT_HEADER,0); // Necesario para visualizar ñ y acentos.
+
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true );
+
+curl_setopt($ch, CURLOPT_ENCODING, "gzip,deflate");  
+
+$response = curl_exec($ch); //La variable response almacena el response de la pagina.
+
+$responsefiltrado = explode('</td>', $response); // Divido la pagina para tener los datos que necesito mas accesibles.
+
+curl_close($ch);
+
+// Asignacion de Cotizaciones y adaptacion de variables, primero encontrar el numero, despues cambiarle la coma por punto y parsearla a float.
+$libra_compra = floatval(str_replace(',', '.', substr($responsefiltrado[15], 114, 119)));
+$libra_venta = floatval(str_replace(',', '.', substr($responsefiltrado[16], 96, 101)));
+$dolar_compra = floatval(str_replace(',', '.', substr($responsefiltrado[18], 114, 119)));
+$dolar_venta = floatval(str_replace(',', '.', substr($responsefiltrado[19], 96, 101)));
+$real_compra = floatval(str_replace(',', '.', substr($responsefiltrado[30], 114, 119)));
+$real_venta = floatval(str_replace(',', '.', substr($responsefiltrado[31], 96, 101)));
+$euro_compra = floatval(str_replace(',', '.', substr($responsefiltrado[57], 114, 119)));
+$euro_venta = floatval(str_replace(',', '.', substr($responsefiltrado[58], 96, 101)));
+
+//Asignacion de Constantes.
+const LIBRA = 'Libra';
+const DOLAR = 'Dolar';
+const REALB = 'Real';
+const EURO = 'Euro';
+
+//Parámetros BD.
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "cotizacion_supervielle";
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
-// Estableciendo los parámetros de conexión a la base de datos.
-$conexion = mysqli_connect($servername, $username, $password, $dbname);
 
-/*	Utilizando el escapeo de caracteres nativo de PHP, para evitar inyeccion SQL.
-	Adicionalmente se podría utilizar una vista o un stored procedure en la BD.
-*/
-$moneda_safe = mysqli_real_escape_string($conexion, $moneda);
-$fecha_safe = mysqli_real_escape_string($conexion, $fecha);
+//Se utiliza el REPLACE INTO, debido a que en el día la cotización puede cambiar.
+//NOTA: No se utiliza SQL Binding, debido a que el usuario no tiene acceso directamente a este archivo.
+$sql = "REPLACE INTO cotizaciones (moneda, compra, venta)
+VALUES ('".LIBRA."', '".$libra_compra."', '".$libra_venta."');";
+$sql .= "REPLACE INTO cotizaciones (moneda, compra, venta)
+VALUES ('".DOLAR."', '".$dolar_compra."', '".$dolar_venta."');";
+$sql .= "REPLACE INTO cotizaciones (moneda, compra, venta)
+VALUES ('".REALB."', '".$real_compra."', '".$real_venta."');";
+$sql .= "REPLACE INTO cotizaciones (moneda, compra, venta)
+VALUES ('".EURO."', '".$euro_compra."', '".$euro_venta."')";
 
-//Estableciendo los parámetros de consulta a la base de datos.
-
-$sql="SELECT compra, venta FROM cotizaciones WHERE moneda = '".$moneda_safe."' AND fecha = '".$fecha_safe."'";
-$result = mysqli_query($conexion,$sql);
-
-//Se imprime visualmente una tabla con la información.
-echo "<table> 
-<tr>
-<th>Compra</th>
-<th>Venta</th>
-</tr>";
-
-while($row = mysqli_fetch_array($result)) { // Se imprime agrupado en tablas la informacion de la base de datos.
-    echo "<tr>";
-    echo "<td>" . $row['compra'] . "</td>";
-    echo "<td>" . $row['venta'] . "</td>";
-    echo "</tr>";
-}
-echo "</table>"; // Se cierra la tabla.
-mysqli_close($conexion); // Se cierra la conexión a la base.
+//Ejecutando la consulta.
+mysqli_multi_query($conn, $sql);
+//Cerrando Conexion BD.
+mysqli_close($conn);
 ?>
