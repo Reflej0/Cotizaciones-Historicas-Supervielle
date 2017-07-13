@@ -44,13 +44,13 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 
 //Definiendo los inserts de cotizaciones.
-$sql = "INSERT INTO cotizaciones (moneda, compra, venta)
+$sql = "REPLACE INTO cotizaciones (moneda, compra, venta)
 VALUES ('".LIBRA."', '".$libra_compra."', '".$libra_venta."');";
-$sql .= "INSERT INTO cotizaciones (moneda, compra, venta)
+$sql .= "REPLACE INTO cotizaciones (moneda, compra, venta)
 VALUES ('".DOLAR."', '".$dolar_compra."', '".$dolar_venta."');";
-$sql .= "INSERT INTO cotizaciones (moneda, compra, venta)
+$sql .= "REPLACE INTO cotizaciones (moneda, compra, venta)
 VALUES ('".REALB."', '".$real_compra."', '".$real_venta."');";
-$sql .= "INSERT INTO cotizaciones (moneda, compra, venta)
+$sql .= "REPLACE INTO cotizaciones (moneda, compra, venta)
 VALUES ('".EURO."', '".$euro_compra."', '".$euro_venta."')";
 
 //Ejecutando la consulta.
