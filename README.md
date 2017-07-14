@@ -12,7 +12,7 @@ moneda, Formato: VARCHAR.
 compra, Formato: FLOAT.  
 venta, Formato: FLOAT.  
 La tabla contiene como clave primaria a los campos fecha y moneda. Es decir se admite un único valor de compra y venta por dia de una moneda.  
-Además se incluye un trigger, que a cada registro agregado le define la fecha, dado que el campo DATE no admite CURRENT_TIMESTAMP como valor por defecto.
+[Discontinuado]. Además se incluye un trigger, que a cada registro agregado le define la fecha, dado que el campo DATE no admite CURRENT_TIMESTAMP como valor por defecto.
 
 # PHP
 Por la parte de PHP, se incluyen 3 archivos.  
