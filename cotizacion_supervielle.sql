@@ -31,8 +31,8 @@ USE `cotizacion_supervielle`;
 CREATE TABLE `cotizaciones` (
   `fecha` date NOT NULL,
   `moneda` char(6) NOT NULL, /* para optimizar el espacio en la tabla. */
-  `compra` float(7,3) NOT NULL, /* para optimizar el espacio en la tabla. */
-  `venta` float(7,3) NOT NULL /* para optimizar el espacio en la tabla. */
+  `compra` float(7,3) UNSIGNED NOT NULL, /* para optimizar el espacio en la tabla. */
+  `venta` float(7,3) UNSIGNED NOT NULL /* para optimizar el espacio en la tabla. */
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
