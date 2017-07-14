@@ -8,9 +8,9 @@ La misión es crear una web donde la información de las distintas monedas se ex
 # SQL
 Por la parte de SQL se mantiene una sola base de datos llamada cotizacion_supervielle, la cual contiene una sola tabla con los siguientes campos.  
 fecha, Formato: DATE.  
-moneda, Formato: VARCHAR.  
-compra, Formato: FLOAT.  
-venta, Formato: FLOAT.  
+moneda, Formato: CHAR[7].  
+compra, Formato: FLOAT(7,3).  
+venta, Formato: FLOAT(7,3).  
 La tabla contiene como clave primaria a los campos fecha y moneda. Es decir se admite un único valor de compra y venta por dia de una moneda.  
 [Discontinuado]. Además se incluye un trigger, que a cada registro agregado le define la fecha, dado que el campo DATE no admite CURRENT_TIMESTAMP como valor por defecto.
 
