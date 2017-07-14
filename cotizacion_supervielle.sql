@@ -30,13 +30,13 @@ USE `cotizacion_supervielle`;
 
 CREATE TABLE `cotizaciones` (
   `fecha` date NOT NULL,
-  `moneda` varchar(30) NOT NULL,
-  `compra` float NOT NULL,
-  `venta` float NOT NULL
+  `moneda` char(6) NOT NULL, /* para optimizar el espacio en la tabla. */
+  `compra` float(7,3) NOT NULL, /* para optimizar el espacio en la tabla. */
+  `venta` float(7,3) NOT NULL /* para optimizar el espacio en la tabla. */
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Disparadores `cotizaciones`
+-- Disparadores `cotizaciones` /* Uso del trigger discontinuado. */
 --
 DELIMITER $$
 CREATE TRIGGER `default_date` BEFORE INSERT ON `cotizaciones` FOR EACH ROW set new.fecha=curdate()
