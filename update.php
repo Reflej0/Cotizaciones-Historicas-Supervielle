@@ -45,14 +45,14 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 //Se utiliza el REPLACE INTO, debido a que en el día la cotización puede cambiar.
 //NOTA: No se utiliza SQL Binding, debido a que el usuario no tiene acceso directamente a este archivo.
-$sql = "REPLACE INTO cotizaciones (moneda, compra, venta)
-VALUES ('".LIBRA."', '".$libra_compra."', '".$libra_venta."');";
-$sql .= "REPLACE INTO cotizaciones (moneda, compra, venta)
-VALUES ('".DOLAR."', '".$dolar_compra."', '".$dolar_venta."');";
-$sql .= "REPLACE INTO cotizaciones (moneda, compra, venta)
-VALUES ('".REALB."', '".$real_compra."', '".$real_venta."');";
-$sql .= "REPLACE INTO cotizaciones (moneda, compra, venta)
-VALUES ('".EURO."', '".$euro_compra."', '".$euro_venta."')";
+$sql = "REPLACE INTO cotizaciones (fecha, moneda, compra, venta)
+VALUES ('".date("Y/m/d")."', '".LIBRA."', '".$libra_compra."', '".$libra_venta."');";
+$sql .= "REPLACE INTO cotizaciones (fecha, moneda, compra, venta)
+VALUES ('".date("Y/m/d")."', '".DOLAR."', '".$dolar_compra."', '".$dolar_venta."');";
+$sql .= "REPLACE INTO cotizaciones (fecha, moneda, compra, venta)
+VALUES ('".date("Y/m/d")."', '".REALB."', '".$real_compra."', '".$real_venta."');";
+$sql .= "REPLACE INTO cotizaciones (fecha, moneda, compra, venta)
+VALUES ('".date("Y/m/d")."', '".EURO."', '".$euro_compra."', '".$euro_venta."')";
 
 //Ejecutando la consulta.
 mysqli_multi_query($conn, $sql);
