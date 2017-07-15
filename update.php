@@ -1,4 +1,11 @@
 <?php
+
+//Asignacion de Constantes. Al principio del archivo.
+const LIBRA = 'Libra';
+const DOLAR = 'Dolar';
+const REALB = 'Real';
+const EURO = 'Euro';
+
 $ch = curl_init();
 
 curl_setopt($ch, CURLOPT_URL, "https://personas.supervielle.com.ar/Pages/QuotesPanel/QuotesCoins.aspx");
@@ -28,12 +35,6 @@ $real_compra = floatval(str_replace(',', '.', substr($responsefiltrado[30], 114,
 $real_venta = floatval(str_replace(',', '.', substr($responsefiltrado[31], 96, 101)));
 $euro_compra = floatval(str_replace(',', '.', substr($responsefiltrado[57], 114, 119)));
 $euro_venta = floatval(str_replace(',', '.', substr($responsefiltrado[58], 96, 101)));
-
-//Asignacion de Constantes.
-const LIBRA = 'Libra';
-const DOLAR = 'Dolar';
-const REALB = 'Real';
-const EURO = 'Euro';
 
 //Parámetros BD.
 $servername = "localhost";
